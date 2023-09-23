@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalculatorComponent } from './calculator/calculator.component';
 import { FormsModule } from '@angular/forms';
+import { CalculatorModule } from './calculator/calculator.module';
 
 @NgModule({
-  declarations: [AppComponent, CalculatorComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, CalculatorModule],
   providers: [],
   bootstrap: [AppComponent],
 })

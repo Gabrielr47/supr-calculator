@@ -7,7 +7,17 @@
 */
 
 export function evaluateExpression(expression: string): number | null {
-  return evaluatePostfixExpression(convertToPostfix(expression));
+  try {
+    const result = evaluatePostfixExpression(convertToPostfix(expression));
+
+    if (isNaN(result)) {
+      return null;
+    }
+
+    return result;
+  } catch (error) {
+    return null;
+  }
 }
 
 function convertToPostfix(expression: string): (number | string)[] {
