@@ -1,5 +1,3 @@
-import { isValidExpression } from '../valid-expression/valid-expression';
-
 /*
     Task B - Evaluate Expression
 
@@ -9,18 +7,7 @@ import { isValidExpression } from '../valid-expression/valid-expression';
 */
 
 export function evaluateExpression(expression: string): number | null {
-  try {
-    const validExpression = isValidExpression(expression);
-
-    if (!validExpression) {
-      return null;
-    }
-
-    return evaluatePostfixExpression(convertToPostfix(expression));
-  } catch (error) {
-    console.error('Error evaluating expression:', error);
-    return null;
-  }
+  return evaluatePostfixExpression(convertToPostfix(expression));
 }
 
 function convertToPostfix(expression: string): (number | string)[] {

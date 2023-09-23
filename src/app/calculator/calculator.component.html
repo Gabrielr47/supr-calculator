@@ -1,0 +1,48 @@
+<!-- 
+    Task C - Calculator
+
+    Write a Single Page Application that allows the user to input an ex-
+    pression, validates the expression (on every keypress) and evaluates the result.
+    
+    If the expression inputted by the user is invalid an error message should be displayed.
+    Do not use any external libraries for this part.
+ -->
+
+<div class="container">
+  <h1>
+    Calculator
+    <a
+      href="https://en.wikipedia.org/wiki/42_(number)#The_Hitchhiker's_Guide_to_the_Galaxy"
+      target="_blank"
+      >42</a
+    >
+  </h1>
+  <form>
+    <label for="expression">Expression</label>
+    <input
+      type="text"
+      id="expression"
+      placeholder="Enter expression"
+      [(ngModel)]="expression"
+      [ngModelOptions]="{ standalone: true }"
+      (keyup)="validateAndCalculate()"
+      autocomplete="off"
+    />
+
+    <div class="alert alert-danger" role="alert" *ngIf="error">
+      {{ error }}
+    </div>
+    <div class="alert alert-success" role="alert" *ngIf="result">
+      Result: {{ result }}
+    </div>
+  </form>
+
+  <div>
+    <h2>Calculation <b>History</b></h2>
+    <ul class="expression-list">
+      <li *ngFor="let expression of lastExpressions.slice(-5)">
+        {{ expression }}
+      </li>
+    </ul>
+  </div>
+</div>
