@@ -1,18 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { evaluateExpression } from '../evaluate-expression/evaluate-expression';
 import { isValidExpression } from '../valid-expression/valid-expression';
+import { RandService } from '../rand.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: ['./calculator.component.scss'],
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements OnDestroy {
   lastExpressions: string[] = [];
   expression: string = '';
   error: string = '';
   result: number | null = null;
   isValidInput: boolean = false;
+  randNumber: number = 0;
+  subscription$: Subscription = new Subscription();
+
+  constructor(private randService: RandService) {}
+
+  rand() {
+    this.subscription$ = this.randService.getRandomNumber().subscribe(
+      (data: number) => {
+        this.expression = `${this.expression} ${data.toString()}`;
+        this.validateAndCalculate();
+      },
+      (error) => {
+        this.error = 'Fetching random number failed';
+        console.error(error);
+      },
+    );
+  }
 
   validateAndCalculate(): void {
     this.error = '';
@@ -52,5 +71,9 @@ export class CalculatorComponent {
       this.error = error as string;
       this.result = null;
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription$.unsubscribe();
   }
 }

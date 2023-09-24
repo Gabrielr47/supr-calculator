@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { isValidExpression } from '../valid-expression/valid-expression';
 
 import { CalculatorComponent } from './calculator.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RandService } from '../rand.service';
+import { of } from 'rxjs';
 
 describe('CalculatorComponent', () => {
   let component: CalculatorComponent;
@@ -11,7 +14,7 @@ describe('CalculatorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CalculatorComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, HttpClientModule],
     }).compileComponents();
   });
 
@@ -102,6 +105,24 @@ describe('CalculatorComponent', () => {
       component.expression = '1 + 2';
       component.validateAndCalculate();
       expect(component.calculate).toHaveBeenCalled();
+    });
+  });
+
+  describe('rand', () => {
+    it('should append a random number to the expression', () => {
+      const randService = TestBed.inject(RandService);
+      spyOn(randService, 'getRandomNumber').and.returnValue(of(42));
+      component.expression = '1 +';
+      component.rand();
+      expect(component.expression).toBe('1 + 42');
+    });
+
+    it('should call validateAndCalculate after appending the number', () => {
+      const randService = TestBed.inject(RandService);
+      spyOn(randService, 'getRandomNumber').and.returnValue(of(42));
+      spyOn(component, 'validateAndCalculate');
+      component.rand();
+      expect(component.validateAndCalculate).toHaveBeenCalled();
     });
   });
 });

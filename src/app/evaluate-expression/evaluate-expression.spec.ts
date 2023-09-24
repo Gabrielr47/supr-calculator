@@ -22,7 +22,7 @@ describe('evaluateExpression', () => {
     expect(evaluateExpression('(10 / 2) - 3')).toBe(2);
 
     // Some decimal numbers are not precise in JavaScript compared to google calculator
-    // That's why we use toBeCloseTo instead of toBe (which is a strict equality) 
+    // That's why we use toBeCloseTo instead of toBe (which is a strict equality)
     // Needs further investigation to find a better solution and avoid flaky tests
 
     expect(evaluateExpression('tan(42)')).toBeCloseTo(2.29138799244);

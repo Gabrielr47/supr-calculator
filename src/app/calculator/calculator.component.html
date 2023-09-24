@@ -6,10 +6,21 @@
     
     If the expression inputted by the user is invalid an error message should be displayed.
     Do not use any external libraries for this part.
- -->
 
+     Task D - Supr-Calculator
+
+    • Add a RAND operand that will generate a random number. The
+    RAND should get its input from endpoint https://www.random.org/
+    integers/?num=1&min=1&max=100&col=1&base=10&format=plain&
+    rnd=new
+
+    • Display a calculator UI with buttons for every digit and operator
+    allowing the user to input an expression without using the native
+    mobile keyboard. The layout should respond to device orientation.
+ -->
 <div class="container">
   <h1>
+    <a href="#">Supr</a>
     Calculator
     <a
       href="https://en.wikipedia.org/wiki/42_(number)#The_Hitchhiker's_Guide_to_the_Galaxy"
@@ -28,6 +39,8 @@
       (keyup)="validateAndCalculate()"
       autocomplete="off"
     />
+
+    <button class="btn" (click)="rand()">Rand</button>
 
     <div class="alert alert-danger" role="alert" *ngIf="error">
       {{ error }}
