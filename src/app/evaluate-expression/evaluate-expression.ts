@@ -33,7 +33,12 @@ function convertToPostfix(expression: string): (number | string)[] {
     tan: 3,
   };
 
-  const tokens = expression.split(/\s+/);
+  // Remove spaces from the expression and split it into tokens. fixing issues
+  // when generating expressions with spaces and without it e.g: 1-2+3 and 1 - 2 + 3
+  const tokens = expression
+    .replace(/\s/g, '')
+    .split(/([+\-*/()])/)
+    .filter(Boolean);
 
   for (const token of tokens) {
     if (!isNaN(Number(token))) {

@@ -35,7 +35,9 @@ export function isValidExpression(expression: string): boolean {
 
       if (isOperator(char)) {
         if (lastOperator) {
-          if (char !== '-' && char !== '+' && char !== '(') {
+          const isTwoConsecutiveOperators =
+            char !== '-' && char !== '+' && char !== '(' && char !== '*';
+          if (isTwoConsecutiveOperators) {
             return false; // Two consecutive operators or an operator after an open parenthesis are not allowed
           }
         }
@@ -67,6 +69,11 @@ export function isValidExpression(expression: string): boolean {
     // Check if there are unmatched opening parentheses
     if (stack.length !== 0) {
       return false;
+    }
+
+    // Check if the last character is an matching closing parentheses
+    if (stack.length === 0 && expression[end] === ')') {
+      return true;
     }
 
     return !lastOperator;
